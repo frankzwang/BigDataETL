@@ -18,9 +18,16 @@
   reboot
   There could be other ways of doing it but here we just use reboot for easier illustration.
   
-  Now, import data from mySQL into Hive
-  sqoop import --connect jdbc:mysql://mysql-server-ip:port number/mysql-db-name --username <mysql db user> --password <password> --table <mysql-table name> --hive-import --
+  Now, import data from mySQL into Hive:
   
+  To import all tables from mySQL into Hive (1 table):
+  sqoop import --connect jdbc:mysql://mysql-server-ip:port number/mysql-db-name --username <mysql db user> --password <password> --table <mysql-table name> --hive-import --
+ 
+  To import all tables from mySQL into Hive (all tables):
+  sqoop import-all-tables --connect jdbc:mysql://mysql-server-ip:port number/mysql-db-name --username <mysql db user> --password <password> --table <mysql-table name> --hive-import --
+  
+  Make sure there is no opened hive shell at the same time you are running above sqoop command.
+
   Log in the Hadoop GUI to make sure the table is imported or use the following command:
   hadoop fs -ls /apps/hive/warehouse
   You should be able to see the imported table above
