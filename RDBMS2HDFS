@@ -1,0 +1,26 @@
+1. Use sqoop to move data between RDBMS and HDFS
+
+1.1 Use Sqoop to import data from MySQL DB to Hadoop cluster
+
+  Log in Hadoop 
+    cd /usr/local
+  
+  Download and untar the MySQL driver 
+    Goto http://dev.mysql.com/downloads/file.php?id=451546 (note the link could change)
+    curl -L 'dev.mysql.com/get/Downloads/Connector-J/mySQL-connector-java-5.1.30.tar.gz' | tar xz
+    ls
+    You should now see mysql-connector-java-5.1.30 folder
+  
+  Copy mySQL connector to the Sqoop lib folder
+    cd mysql-connector-java-5.1.30 
+    cp mysql-connector-java-5.1.30-bin.jar /usr/lib/sqoop/lib
+  
+  reboot
+  There could be other ways of doing it but here we just use reboot for easier illustration.
+  
+  Now, import data from mySQL into Hive
+  sqoop import --connect jdbc:mysql://mysql-server-ip:port number/mysql-db-name --username <mysql db user> --password <password> --table <mysql-table name> --hive-import --
+  
+  Log in the Hadoop GUI to make sure the table is imported or use the following command:
+  hadoop fs -ls /apps/hive/warehouse
+  You should be able to see the imported table above
